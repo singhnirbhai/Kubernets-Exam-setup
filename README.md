@@ -20,7 +20,7 @@ chmod +x /usr/local/bin/kind
 ```
 
 ```bash
-vi kind-config.yaml
+chmod +x kind-cluster.sh
 ```
 
 ```
