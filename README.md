@@ -92,9 +92,7 @@ echo "Environment Ready. Chaos Loaded."
 ```
 ## Questions yml file
 ```bash
-vi quota.yaml
-```
-```
+cat <<EOF > quota.yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -105,11 +103,10 @@ spec:
     requests.memory: "100Mi"
     limits.memory: "200Mi"
     pods: "2"
+EOF
 ```
 ```bash
-vi web-app.yaml
-```
-```
+cat <<EOF > web-app.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -133,11 +130,10 @@ spec:
             memory: "300Mi"
           limits:
             memory: "400Mi"
+EOF
 ```
 ```bash
-vi backend.yaml
-```
-```
+cat <<EOF> backend.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -168,11 +164,10 @@ spec:
   ports:
   - port: 80
     targetPort: 80
+EOF
 ```
 ```bash
-vi imagepull.yaml
-```
-```
+cat <<EOF> imagepull.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -190,11 +185,10 @@ spec:
       containers:
       - name: nginx
         image: nginx:wrongtag
+EOF
 ```
 ```bash
-vi crashloop.yaml
-```
-```
+cat <<EOF>  crashloop.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -204,11 +198,10 @@ spec:
   - name: busy
     image: busybox
     command: ["sleep"]
+EOF
 ```
 ```bash
-vi pvc.yaml
-```
-```
+cat <<EOF> pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -219,11 +212,11 @@ spec:
   resources:
     requests:
       storage: 1Gi
+EOF
 ```
 ```bash
-vi limitrange.yaml
-```
-```
+
+cat <<EOF> limitrange.yaml
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -236,25 +229,10 @@ spec:
       cpu: "200m"
     defaultRequest:
       cpu: "100m"
+EOF
 ```
 ```bash
-apiVersion: v1
-kind: LimitRange
-metadata:
-  name: cpu-limit
-  namespace: limited-ns
-spec:
-  limits:
-  - type: Container
-    default:
-      cpu: "200m"
-    defaultRequest:
-      cpu: "100m"
-```
-```bash
-vi configmap.yaml
-```
-```
+cat <<EOF> configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -279,11 +257,10 @@ spec:
       containers:
       - name: nginx
         image: nginx
+EOF
 ```
 ```bash
-vi imagepull.yaml
-```
-```
+cat <<EOF> imagepull.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -304,11 +281,10 @@ spec:
         image: nginx:wrongtag
         ports:
         - containerPort: 80
+EOF
 ```
 ```bash
-vi limit-deployment.yaml
-```
-```
+cat <<EOF> limit-deployment.yaml 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -327,11 +303,11 @@ spec:
       containers:
       - name: nginx
         image: nginx
+EOF
 ```
 ```bash
-vi exam-pvc.yaml
-```
-```
+
+cat <<EOF> exam-pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -344,11 +320,10 @@ spec:
   resources:
     requests:
       storage: 1Gi
+EOF
 ```
 ```bash
-vi exam-deployment.yaml
-```
-```
+cat <<EOF> exam-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -374,6 +349,7 @@ spec:
       - name: exam-storage
         persistentVolumeClaim:
           claimName: exam-pvc
+EOF
 ```
 ```bash
 vi exam-check.sh
