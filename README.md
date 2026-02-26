@@ -269,30 +269,30 @@ EOF
 ```
 ## Question 9
 ```bash
-cat <<EOF> imagepull.yaml
+cat <<EOF> node-label.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-test
+  name: node-app
   namespace: production
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: image-test
+      app: node-test
   template:
     metadata:
       labels:
-        app: image-test
+        app: node-test
     spec:
+      nodeSelector:
+        disktype: ssd
       containers:
       - name: nginx
-        image: nginx:wrongtag
-        ports:
-        - containerPort: 80
+        image: nginx
 EOF
 ```
-## Question 9
+## Question 10
 ```bash
 cat <<EOF> limit-deployment.yaml 
 apiVersion: apps/v1
@@ -315,7 +315,7 @@ spec:
         image: nginx
 EOF
 ```
-## Question 10
+## Question 11
 ```bash
 
 cat <<EOF> exam-pvc.yaml
@@ -333,7 +333,7 @@ spec:
       storage: 1Gi
 EOF
 ```
-## Question 11
+## Question 12
 ```bash
 cat <<EOF> exam-deployment.yaml
 apiVersion: apps/v1
