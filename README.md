@@ -1,10 +1,21 @@
 # Kubernets- Exam Environmet setup 
+
+
 ```
 exam/
  ├── setup.sh
  ├── broken/
  ├── solutions
  └── evaluate.sh
+```
+```bash
+mkdir exam
+```
+```bash
+touch setup.sh evaluate.sh
+```
+```bash
+mkdir -p /exam/broken
 ```
 
 ## Shell script deploy kind cluster on machine 
