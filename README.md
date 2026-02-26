@@ -4,7 +4,7 @@
 ```
 exam/
  ├── setup.sh
- ├── broken/
+ ├── manifest/
  ├── solutions
  └── evaluate.sh
 ```
@@ -15,7 +15,7 @@ mkdir exam
 touch setup.sh evaluate.sh
 ```
 ```bash
-mkdir -p /exam/broken
+mkdir -p /exam/manifest
 ```
 
 ## Shell script deploy kind cluster on machine 
@@ -70,22 +70,22 @@ kubectl create ns dev-team
 kubectl create ns limited-ns
 
 echo "Applying ResourceQuota..."
-kubectl apply -f broken/quota.yaml
+kubectl apply -f manifest/quota.yaml
 
 echo "Applying LimitRange..."
-kubectl apply -f broken/limitrange.yaml
+kubectl apply -f manifest/limitrange.yaml
 
 echo "Deploying broken applications..."
-kubectl apply -f broken/web-app.yaml
-kubectl apply -f broken/backend.yaml
-kubectl apply -f broken/imagepull.yaml
-kubectl apply -f broken/crashloop.yaml
-kubectl apply -f broken/pvc.yaml
-kubectl apply -f broken/configmap.yaml
-kubectl apply -f broken/node-label.yaml
-kubectl apply -f broken/limit-deployment.yaml
-kubectl apply -f broken/exam-pvc.yaml
-kubectl apply -f broken/exam-deployment.yaml
+kubectl apply -f manifest/web-app.yaml
+kubectl apply -f manifest/backend.yaml
+kubectl apply -f manifest/imagepull.yaml
+kubectl apply -f manifest/crashloop.yaml
+kubectl apply -f manifest/pvc.yaml
+kubectl apply -f manifest/configmap.yaml
+kubectl apply -f manifest/node-label.yaml
+kubectl apply -f manifest/limit-deployment.yaml
+kubectl apply -f manifest/exam-pvc.yaml
+kubectl apply -f manifest/exam-deployment.yaml
 kubectl label nodes exam-cluster-worker disktype=ssd
 kubectl label nodes exam-cluster-worker2 disktype=ssd
 echo "Cordon node..."
