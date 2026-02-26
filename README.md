@@ -86,7 +86,8 @@ kubectl apply -f broken/node-label.yaml
 kubectl apply -f broken/limit-deployment.yaml
 kubectl apply -f broken/exam-pvc.yaml
 kubectl apply -f broken/exam-deployment.yaml
-
+kubectl label nodes exam-cluster-worker disktype=ssd
+kubectl label nodes exam-cluster-worker2 disktype=ssd
 echo "Cordon node..."
 NODE=$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')
 kubectl cordon $NODE
