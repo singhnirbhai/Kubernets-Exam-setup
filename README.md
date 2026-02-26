@@ -379,6 +379,14 @@ echo "-----------------------------"
 echo "KUBERNETES EXAM EVALUATION"
 echo "-----------------------------"
 
+#!/bin/bash
+
+TOTAL=0
+
+echo "-----------------------------"
+echo "KUBERNETES EXAM EVALUATION"
+echo "-----------------------------"
+
 # Q1 - web-app Running (Quota fixed)
 RUNNING=$(kubectl get pods -n production -l app=web --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
 if [ "$RUNNING" -ge 2 ]; then
@@ -388,103 +396,103 @@ else
   echo "Q1 FAIL - web-app not fixed"
 fi
 
-# Q2 - frontend scaled to 5
-REPLICAS=$(kubectl get deploy frontend-app -n production -o jsonpath='{.spec.replicas}' 2>/dev/null)
-if [ "$REPLICAS" = "5" ]; then
-  echo "Q2 PASS - scaled correctly"
-  TOTAL=$((TOTAL+10))
-else
-  echo "Q2 FAIL - scaling incorrect"
-fi
-
-# Q3 - Secret created
+# Q2 - Secret created
 SECRET=$(kubectl get secret site-secret -n production --no-headers 2>/dev/null | wc -l)
 if [ "$SECRET" -eq 1 ]; then
-  echo "Q3 PASS - secret exists"
+  echo "Q2 PASS - secret exists"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q3 FAIL - secret missing"
+  echo "Q2 FAIL - secret missing"
 fi
 
-# Q4 - backend service endpoints exist
+# Q3 - backend service endpoints exist
 ENDPOINTS=$(kubectl get endpoints backend-service -n production -o jsonpath='{.subsets[0].addresses[0].ip}' 2>/dev/null)
 if [ -n "$ENDPOINTS" ]; then
-  echo "Q4 PASS - service fixed"
+  echo "Q3 PASS - service fixed"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q4 FAIL - service not routing"
+  echo "Q3 FAIL - service not routing"
 fi
 
-# Q5 - ResourceQuota in dev-team
+# Q4 - ResourceQuota in dev-team
 QUOTA=$(kubectl get resourcequota -n dev-team --no-headers 2>/dev/null | wc -l)
 if [ "$QUOTA" -ge 1 ]; then
-  echo "Q5 PASS - ResourceQuota created"
+  echo "Q4 PASS - ResourceQuota created"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q5 FAIL - ResourceQuota missing"
+  echo "Q4 FAIL - ResourceQuota missing"
 fi
 
-# Q6 - PVC Bound
+# Q5 - PVC Bound
 PVC=$(kubectl get pvc data-pvc -o jsonpath='{.status.phase}' 2>/dev/null)
 if [ "$PVC" = "Bound" ]; then
-  echo "Q6 PASS - PVC bound"
+  echo "Q5 PASS - PVC bound"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q6 FAIL - PVC not bound"
+  echo "Q5 FAIL - PVC not bound"
 fi
 
-# Q7 - ConfigMap updated
+# Q6 - ConfigMap updated
 CONFIG=$(kubectl get configmap site-config -o jsonpath='{.data.message}' 2>/dev/null)
 if [[ "$CONFIG" == *"Kubernetes"* ]]; then
-  echo "Q7 PASS - ConfigMap updated"
+  echo "Q6 PASS - ConfigMap updated"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q7 FAIL - ConfigMap not updated"
+  echo "Q6 FAIL - ConfigMap not updated"
 fi
 
-# Q8 - CrashLoop fixed
+# Q7 - CrashLoop fixed
 CRASH=$(kubectl get pod broken-app -o jsonpath='{.status.phase}' 2>/dev/null)
 if [ "$CRASH" = "Running" ]; then
-  echo "Q8 PASS - CrashLoop fixed"
+  echo "Q7 PASS - CrashLoop fixed"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q8 FAIL - CrashLoop not resolved"
+  echo "Q7 FAIL - CrashLoop not resolved"
 fi
 
-# Q9 - ImagePullBackOff fixed
+# Q8 - ImagePullBackOff fixed
 IMAGE=$(kubectl get pods -n production -l app=image-test --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
 if [ "$IMAGE" -ge 1 ]; then
-  echo "Q9 PASS - Image issue fixed"
+  echo "Q8 PASS - Image issue fixed"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q9 FAIL - Image issue not resolved"
+  echo "Q8 FAIL - Image issue not resolved"
 fi
 
-# Q10 - limited-ns deployment running
+# Q9 - limited-ns deployment running
 LIMITED=$(kubectl get pods -n limited-ns --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
 if [ "$LIMITED" -ge 1 ]; then
-  echo "Q10 PASS - LimitRange handled"
+  echo "Q9 PASS - LimitRange handled"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q10 FAIL - LimitRange issue unresolved"
+  echo "Q9 FAIL - LimitRange issue unresolved"
 fi
 
-# Q11 - exam-app running with PVC
+# Q10 - exam-app running with PVC
 EXAM=$(kubectl get pods -n production -l app=exam --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
 if [ "$EXAM" -ge 2 ]; then
-  echo "Q11 PASS - PV/PVC attached"
+  echo "Q10 PASS - PV/PVC attached"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q11 FAIL - Storage scenario incomplete"
+  echo "Q10 FAIL - Storage scenario incomplete"
 fi
 
-# Q12 - Node uncordoned
+# Q11 - Node uncordoned
 CORDONED=$(kubectl get nodes | grep SchedulingDisabled | wc -l)
 if [ "$CORDONED" -eq 0 ]; then
-  echo "Q12 PASS - Node schedulable"
+  echo "Q11 PASS - Node schedulable"
   TOTAL=$((TOTAL+10))
 else
-  echo "Q12 FAIL - Node still cordoned"
+  echo "Q11 FAIL - Node still cordoned"
+fi
+
+# Q12 - NodeSelector issue fixed
+NODE_APP=$(kubectl get pods -n production -l app=node-test --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
+if [ "$NODE_APP" -ge 2 ]; then
+  echo "Q12 PASS - Node selector issue resolved"
+  TOTAL=$((TOTAL+10))
+else
+  echo "Q12 FAIL - Node selector not fixed"
 fi
 
 echo "-----------------------------"
