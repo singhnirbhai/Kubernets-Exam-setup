@@ -1,4 +1,12 @@
 # Kubernets- Exam Environmet setup 
+```
+exam/
+ ├── setup.sh
+ ├── broken/
+ ├── solutions
+ └── evaluate.sh
+```
+
 ## Shell script deploy kind cluster on machine 
 ```bash
 vi kind-cluster.sh
@@ -22,7 +30,10 @@ chmod +x /usr/local/bin/kind
 ```bash
 chmod +x kind-cluster.sh
 ```
-
+# Create cluster
+```bash
+vi kind-config.yaml
+```
 ```
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -32,17 +43,9 @@ nodes:
   - role: worker
   - role: worker
 ```
-# Create cluster
+
 ```bash
 kind create cluster --config kind-config.yaml
-```
-
-```
-exam/
- ├── setup.sh
- ├── broken/
- ├── solutions
- └── evaluate.sh
 ```
 ```bash
 vim setup.sh
