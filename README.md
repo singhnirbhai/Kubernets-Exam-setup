@@ -91,7 +91,7 @@ kubectl cordon $NODE
 echo "Environment Ready. Chaos Loaded."
 ```
 ## Questions yml file
-## 1
+## Question 1
 ```bash
 cat <<EOF > quota.yaml
 apiVersion: v1
@@ -106,6 +106,7 @@ spec:
     pods: "2"
 EOF
 ```
+## Question 2
 ```bash
 cat <<EOF > web-app.yaml
 apiVersion: apps/v1
@@ -133,6 +134,7 @@ spec:
             memory: "400Mi"
 EOF
 ```
+## Question 3
 ```bash
 cat <<EOF> backend.yaml
 apiVersion: apps/v1
@@ -167,6 +169,7 @@ spec:
     targetPort: 80
 EOF
 ```
+## Question 4
 ```bash
 cat <<EOF> imagepull.yaml
 apiVersion: apps/v1
@@ -188,6 +191,7 @@ spec:
         image: nginx:wrongtag
 EOF
 ```
+## Question 5
 ```bash
 cat <<EOF>  crashloop.yaml
 apiVersion: v1
@@ -201,6 +205,7 @@ spec:
     command: ["sleep"]
 EOF
 ```
+## Question 6
 ```bash
 cat <<EOF> pvc.yaml
 apiVersion: v1
@@ -215,6 +220,7 @@ spec:
       storage: 1Gi
 EOF
 ```
+## Question 7
 ```bash
 
 cat <<EOF> limitrange.yaml
@@ -232,6 +238,7 @@ spec:
       cpu: "100m"
 EOF
 ```
+## Question 8
 ```bash
 cat <<EOF> configmap.yaml
 apiVersion: v1
@@ -260,6 +267,7 @@ spec:
         image: nginx
 EOF
 ```
+## Question 9
 ```bash
 cat <<EOF> imagepull.yaml
 apiVersion: apps/v1
@@ -284,6 +292,7 @@ spec:
         - containerPort: 80
 EOF
 ```
+## Question 9
 ```bash
 cat <<EOF> limit-deployment.yaml 
 apiVersion: apps/v1
@@ -306,6 +315,7 @@ spec:
         image: nginx
 EOF
 ```
+## Question 10
 ```bash
 
 cat <<EOF> exam-pvc.yaml
@@ -323,6 +333,7 @@ spec:
       storage: 1Gi
 EOF
 ```
+## Question 11
 ```bash
 cat <<EOF> exam-deployment.yaml
 apiVersion: apps/v1
