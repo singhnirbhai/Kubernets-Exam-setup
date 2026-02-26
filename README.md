@@ -3,6 +3,7 @@
 ```bash
 vi kind-cluster.sh
 ```
+```bash
 #!/bin/bash
 
 apt update -y
