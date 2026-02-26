@@ -77,12 +77,15 @@ kubectl apply -f broken/limitrange.yaml
 
 echo "Deploying broken applications..."
 kubectl apply -f broken/web-app.yaml
-kubectl apply -f broken/frontend.yaml
 kubectl apply -f broken/backend.yaml
 kubectl apply -f broken/imagepull.yaml
 kubectl apply -f broken/crashloop.yaml
 kubectl apply -f broken/pvc.yaml
 kubectl apply -f broken/configmap.yaml
+kubectl apply -f broken/node-label.yaml
+kubectl apply -f broken/limit-deployment.yaml
+kubectl apply -f broken/exam-pvc.yaml
+kubectl apply -f broken/exam-deployment.yaml
 
 echo "Cordon node..."
 NODE=$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')
