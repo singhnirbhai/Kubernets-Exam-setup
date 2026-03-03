@@ -88,9 +88,7 @@ kubectl apply -f manifest/exam-pvc.yaml
 kubectl apply -f manifest/exam-deployment.yaml
 kubectl label nodes exam-cluster-worker disktype=ssd
 kubectl label nodes exam-cluster-worker2 disktype=ssd
-echo "Cordon node..."
-NODE=$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')
-kubectl cordon $NODE
+kubectl cordon exam-cluster-worker2 
 
 echo "Environment Ready. Chaos Loaded."
 ```
