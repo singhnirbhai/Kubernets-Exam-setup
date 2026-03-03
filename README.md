@@ -86,8 +86,8 @@ kubectl apply -f manifest/node-label.yaml
 kubectl apply -f manifest/limit-deployment.yaml
 kubectl apply -f manifest/exam-pvc.yaml
 kubectl apply -f manifest/exam-deployment.yaml
-kubectl label nodes exam-cluster-worker disktype=ssd
-kubectl label nodes exam-cluster-worker2 disktype=ssd
+kubectl label nodes exam-cluster-worker disktype=sdd
+kubectl label nodes exam-cluster-worker2 disktype=sdd
 kubectl cordon exam-cluster-worker2 
 
 echo "Environment Ready. Chaos Loaded."
