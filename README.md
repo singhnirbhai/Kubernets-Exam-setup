@@ -342,7 +342,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: exam-app
-  namespace: production
 spec:
   replicas: 2
   selector:
