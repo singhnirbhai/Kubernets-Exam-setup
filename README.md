@@ -484,7 +484,7 @@ else
 fi
 
 # Q12 - NodeSelector issue fixed
-NODE_APP=$(kubectl get pods -n production -l app=node-test --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
+NODE_APP=$(kubectl get pods -n default -l app=node-test --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
 if [ "$NODE_APP" -ge 2 ]; then
   echo "Q12 PASS - Node selector issue resolved"
   TOTAL=$((TOTAL+10))
