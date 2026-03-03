@@ -466,7 +466,7 @@ else
 fi
 
 # Q10 - exam-app running with PVC
-EXAM=$(kubectl get pods -n production -l app=exam --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
+EXAM=$(kubectl get pods -n default -l app=exam-app --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
 if [ "$EXAM" -ge 2 ]; then
   echo "Q10 PASS - PV/PVC attached"
   TOTAL=$((TOTAL+10))
